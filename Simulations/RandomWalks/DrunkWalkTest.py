@@ -17,14 +17,15 @@ def simWalks(numSteps, numTrials):
     for trial in range(numTrials):
         f = DrunkenWalk.Field()
         f.addDrunk(homer, origin)
-        distances.append(walk(f, homer, numTrials))
+        distances.append(walk(f, homer, numSteps))
     return distances
 
 def drunkTest(numTrials):
     for numSteps in [10, 100, 1000, 10000, 100000]:
+    # for numSteps in [0,1]:
         distances = simWalks(numSteps, numTrials)
         print 'Random walk of ' + str(numSteps) + ' steps'
         print 'Mean = ', sum(distances)/len(distances)
         print 'Max = ', max(distances), ' Min = ', min(distances)
 
-drunkTest(100)
+drunkTest(1000)
