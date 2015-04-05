@@ -52,3 +52,15 @@ class Field(object):
         if not drunk in self.drunks:
             raise ValueError('Drunk not in field')
         return self.drunks[drunk]
+
+class Drunk(object):
+    def __init__(self, name):
+        self.name = name
+    def __str__(self):
+        return 'This drunk is named ' + self.name
+
+class UsualDrunk(Drunk):
+    def takeStep(self):
+        stepChoices =\
+            [(0.0,1.0), (0.0,-1.0), (1.0, 0.0), (-1.0, 0.0)]
+        return random.choice(stepChoices)
