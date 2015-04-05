@@ -64,3 +64,20 @@ class UsualDrunk(Drunk):
         stepChoices =\
             [(0.0,1.0), (0.0,-1.0), (1.0, 0.0), (-1.0, 0.0)]
         return random.choice(stepChoices)
+
+class ColdDrunk(Drunk):
+    def takeStep(self):
+        stepChoises = [(0.0,0.95), (0.0,-1.0), (1.0,0.0), (-1.0,0.0)]
+        return random.choice(stepChoises)
+
+class EDrunk(Drunk):
+    def takeStep(self):
+        deltaX = random.random()
+        if random.random() < 0.5:
+            deltaX = -deltaX
+
+        deltaY = random.random()
+        if random.random() < 0.5:
+            deltaY = - deltaY
+
+        return (deltaX,deltaY)
