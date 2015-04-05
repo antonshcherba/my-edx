@@ -31,20 +31,24 @@ def drunkTest(numTrials):
         print 'Mean = ', sum(distances)/len(distances)
         print 'Max = ', max(distances), ' Min = ', min(distances)
 
-# drunkTest(20)
+drunkTest(20)
 
 def drunkTestPlot(numTrials=50):
     stepsTaken = [10, 100, 1000, 10000]
     meanDistances = []
+    squareRoot = []
 
     for numSteps in stepsTaken:
         distances = simWalks(numSteps,numTrials)
         meanDistances.append(sum(distances)/len(distances))
+        squareRoot.append(numSteps ** 0.5)
 
-    pylab.plot(stepsTaken, meanDistances)
+    pylab.plot(stepsTaken, meanDistances, label='Mean distances')
+    pylab.plot(stepsTaken, squareRoot, label='Square root of steps')
     pylab.title('Mean distance from Origin')
     pylab.xlabel('Steps taken')
     pylab.ylabel('Steps from Origin')
+    pylab.legend()
     pylab.show()
 
 drunkTestPlot()
