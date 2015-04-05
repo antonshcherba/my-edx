@@ -1,6 +1,8 @@
 __author__ = 'aDmin'
 
 import DrunkenWalk
+import random
+import pylab
 
 def walk(f, d, numSteps):
     start = f.getLoc(d)
@@ -21,6 +23,7 @@ def simWalks(numSteps, numTrials):
     return distances
 
 def drunkTest(numTrials):
+    random.seed(0)
     for numSteps in [10, 100, 1000, 10000, 100000]:
     # for numSteps in [0,1]:
         distances = simWalks(numSteps, numTrials)
@@ -28,4 +31,20 @@ def drunkTest(numTrials):
         print 'Mean = ', sum(distances)/len(distances)
         print 'Max = ', max(distances), ' Min = ', min(distances)
 
-drunkTest(1000)
+# drunkTest(20)
+
+def drunkTestPlot(numTrials=50):
+    stepsTaken = [10, 100, 1000, 10000]
+    meanDistances = []
+
+    for numSteps in stepsTaken:
+        distances = simWalks(numSteps,numTrials)
+        meanDistances.append(sum(distances)/len(distances))
+
+    pylab.plot(stepsTaken, meanDistances)
+    pylab.title('Mean distance from Origin')
+    pylab.xlabel('Steps taken')
+    pylab.ylabel('Steps from Origin')
+    pylab.show()
+
+drunkTestPlot()
