@@ -18,4 +18,11 @@ class intDict(object):
                 hashBucket[i] = (dictKey,dictVal)
                 return
         hashBucket.append((dictKey,dictVal))
-        
+
+    def getValue(self, dictKey):
+        '''Assumes dictKey is an int. Returns entry associated with the dictKey'''
+        hashBucket = self.buckets[dictKey%self.numBuckets]
+        for e in hashBucket:
+            if e[0] == dictKey:
+                return e[1]
+        return None
