@@ -12,5 +12,19 @@ def rollN(n):
 
     return result
 
+def getTarget(goal):
+    ''' Rolls one dice len(goal) times to know
+    how many times it matches the goal
+    :param goal: user suggested  values of dices
+    :return: number of tries that got the goal
+    '''
+    numTries = 0
+    numRolls = len(goal)
+    while (True):
+        numTries +=1
+        result = rollN(numRolls)
+        if (result == goal):
+            return numTries
+
 if __name__ == '__main__':
     main()
