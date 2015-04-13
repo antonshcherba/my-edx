@@ -26,5 +26,18 @@ def getTarget(goal):
         if (result == goal):
             return numTries
 
+
+def runSim(goal, numTrials):
+    total = 0
+    for i in range(numTrials):
+        total += getTarget(goal)
+    aveNumTries = total / float(numTrials)
+    print 'Probability =', 1.0/aveNumTries
+
+def main():
+    runSim('22222',1000)
+    runSim('56216', 1000)
+    return 0
+
 if __name__ == '__main__':
     main()
