@@ -9,4 +9,13 @@ class intDict(object):
         self.numBuckets = numBuckets
         for i in range(numBuckets):
             self.buckets.append([])
-            
+
+    def addEntry(self, dictKey, dictVal):
+        '''Assumes dictKey an int. Adds an entry'''
+        hashBucket = self.buckets[dictKey%self.numBuckets]
+        for i in range(len(hashBucket)):
+            if (hashBucket[i][0] == dictKey):
+                hashBucket[i] = (dictKey,dictVal)
+                return
+        hashBucket.append((dictKey,dictVal))
+        
