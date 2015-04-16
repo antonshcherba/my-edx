@@ -43,13 +43,29 @@ def flipPlot(minExp, maxExp):
     pylab.title('Difference between Heads and Tails')
     pylab.xlabel('Number of Flips')
     pylab.ylabel('Abs(Heads - Tails)')
-    pylab.plot(xAxis,diffs, 'o')
+    pylab.plot(xAxis,diffs)
 
     pylab.figure()
     pylab.title('Heads/Tails ratio')
     pylab.xlabel('Number of Flips')
     pylab.ylabel('Heads/Tails')
     pylab.plot(xAxis,ratios)
+
+    #Additional code to produce different plots from the same data
+    pylab.figure()
+    pylab.title('Difference between Hads and Tails')
+    pylab.xlabel('Number of flips')
+    pylab.ylabel('Abs(#Heads - #Tails)')
+    pylab.plot(xAxis, diffs, 'o')
+    pylab.semilogx()
+    pylab.semilogy()
+
+    pylab.figure()
+    pylab.title('Heads/Tails Ratios')
+    pylab.xlabel('Number of Flips')
+    pylab.ylabel('Heads/Tails')
+    pylab.plot(xAxis, ratios, 'o')
+    pylab.semilogx()
 
 def main():
     # print 'Standard deviation of [a, z, p] is',\
