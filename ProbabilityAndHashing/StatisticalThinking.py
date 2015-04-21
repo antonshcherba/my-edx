@@ -67,6 +67,75 @@ def flipPlot(minExp, maxExp):
     pylab.plot(xAxis, ratios, 'o')
     pylab.semilogx()
 
+def stdDev(data):
+    mean = sum(data)/float(len(data))
+    tot = 0.0
+    for val in data:
+        tot += (val - mean)**2
+
+    return (tot / len(data))**0.5
+
+def runTrial(numFlips):
+    numHeads = 0
+    for n in range(numFlips):
+        if random.random() < 0.5:
+            numHeads += 1
+
+    numTails = numFlips - numHeads
+    return numHeads, numTails
+
+def flipPlot2(minExp, maxExp, numTrials):
+    meanRatios, meanDiffs, ratiosSDs, diffsSDs = [],[],[],[]
+    xAxis = []
+    for exp in range(minExp, maxExp+1):
+        xAxis.append(2**exp)
+    for numFlips in xAxis:
+        ratios, diffs = [],[]
+        for t in range(numTrials):
+            numHeads, numTails = runTrial(numFlips)
+            ratios.append(numHeads/float(numTails))
+            diffs.append(abs(numHeads-numTails))
+
+        meanRatios.append(sum(ratios)/numTrials)
+        meanDiffs.append(sum(diffs)/numTrials)
+        ratiosSDs.append(stdDev(ratios))
+        diffsSDs.append(stdDev(diffs))
+
+    pylab.plot(xAxis, meanRatios,'o')
+    pylab.title('Mean Heads/Tails ratios ('
+                + str(numTrials) + 'Trails)')
+    pylab.xlabel('Number of Flips')
+    pylab.ylabel('Mean Heads/Tails')
+    pylab.semilogx()
+
+    pylab.figure()
+    pylab.plot(xAxis, ratiosSDs, 'o')
+    pylab.title('SD Head/Tails Ratios ('
+                + str(numTrials) + 'Trials)')
+    pylab.xlabel('Number of Flips')
+    pylab.ylabel('Standard deviation')
+    pylab.semilogx()
+    pylab.semilogy()
+
+    pylab.figure()
+    pylab.title('Mean abs(#Heads - #Tails) ('
+                + str(numTrials) + 'Trials)')
+    pylab.xlabel('Number of Flips')
+    pylab.ylabel('Mean abs(#Heads - #Tails)')
+    pylab.plot(xAxis, meanDiffs,'o')
+    pylab.semilogx()
+    pylab.semilogy()
+
+    pylab.figure()
+    pylab.title('SD abs(#Heads - #Tails) ('
+                + str(numTrials) + 'Trials)')
+    pylab.xlabel('Number of Flips')
+    pylab.ylabel('SD of Diffs')
+    pylab.plot(xAxis,diffsSDs,'o')
+    pylab.semilogx()
+    pylab.semilogy()
+
+
 def main():
     # print 'Standard deviation of [a, z, p] is',\
     #     str(stdDevOfLengths(['a', 'z', 'p']))
@@ -74,7 +143,8 @@ def main():
     #     str(stdDevOfLengths(['apples', 'oranges', 'kiwis', 'pineapples']))
 
     random.seed(2)
-    flipPlot(4, 20)
+    # flipPlot(4, 20)
+    flipPlot2(4, 20, 20)
     pylab.show()
 
 if __name__ == '__main__':
