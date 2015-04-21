@@ -269,6 +269,56 @@ class StandardRobot(Robot):
 
 
 # Uncomment this line to see your implementation of StandardRobot in action!
-testRobotMovement(StandardRobot, RectangularRoom)
+##testRobotMovement(StandardRobot, RectangularRoom)
+
+# === Problem 3
+def runSimulation(num_robots, speed, width, height, min_coverage, num_trials,
+                  robot_type):
+    """
+    Runs NUM_TRIALS trials of the simulation and returns the mean number of
+    time-steps needed to clean the fraction MIN_COVERAGE of the room.
+
+    The simulation is run with NUM_ROBOTS robots of type ROBOT_TYPE, each with
+    speed SPEED, in a room of dimensions WIDTH x HEIGHT.
+
+    num_robots: an int (num_robots > 0)
+    speed: a float (speed > 0)
+    width: an int (width > 0)
+    height: an int (height > 0)
+    min_coverage: a float (0 <= min_coverage <= 1.0)
+    num_trials: an int (num_trials > 0)
+    robot_type: class of robot to be instantiated (e.g. StandardRobot or
+                RandomWalkRobot)
+    """
+    steps = []
+    for trial in range(0, num_trials):
+        room = RectangularRoom(width,height)
+        robots = []
+        step = 0
+        #anim = ps2_visualize.RobotVisualization(num_robots, width, height, 1.0)
+        for i in range(0, num_robots):
+            robots.append(robot_type(room,speed))
+
+        while (True):
+            #anim.update(room, robots)
+            for robot in robots:
+                frac = room.getNumCleanedTiles() / float(room.getNumTiles())
+                if (frac >= min_coverage):
+                    break
+                robot.updatePositionAndClean()
+                step +=1
+
+
+            if (room.getNumCleanedTiles() / float(room.getNumTiles()) >= min_coverage):
+                    step = math.ceil(step / float(num_robots))
+                    steps.append(step)
+                    break
+
+        #anim.done()
+
+    return sum(steps) / float(len(steps))
+
+# Uncomment this line to see how much your simulation takes on average
+print  runSimulation(1, 1.0, 10, 10, 0.78, 10,StandardRobot)
 
 
