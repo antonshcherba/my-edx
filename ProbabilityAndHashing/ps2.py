@@ -322,3 +322,55 @@ def runSimulation(num_robots, speed, width, height, min_coverage, num_trials,
 print  runSimulation(1, 1.0, 10, 10, 0.78, 10,StandardRobot)
 
 
+# === Problem 4
+class RandomWalkRobot(Robot):
+    """
+    A RandomWalkRobot is a robot with the "random walk" movement strategy: it
+    chooses a new direction at random at the end of each time-step.
+    """
+    def updatePositionAndClean(self):
+        """
+        Simulate the passage of a single time-step.
+
+        Move the robot to a new position and mark the tile it is on as having
+        been cleaned.
+        """
+        while (True):
+            self.direction = random.randint(0,360)
+            newPosition = self.position.getNewPosition(self.direction,
+                                                       self.speed)
+            if (self.room.isPositionInRoom(newPosition)):
+                self.position = newPosition
+                self.room.cleanTileAtPosition(newPosition)
+                break
+        #raise NotImplementedError
+
+print  runSimulation(1, 1.0, 10, 10, 0.78, 10,RandomWalkRobot)
+
+
+
+
+def main():
+    # room = RectangularRoom(10, 8)
+    # print 'Cleaned tiles in room', str(room.getNumCleanedTiles())
+    # print 'Total number of tiles', str(room.getNumTiles())
+    # routerPos = room.getRandomPosition()
+    # print 'Router position is', str(routerPos)
+    # room.cleanTileAtPosition(routerPos)
+    # room.cleanTileAtPosition(Position(1,1))
+    # print 'Cleaned tiles in room', str(room.getNumCleanedTiles())
+    # if room.isPositionInRoom(routerPos):
+    #     print 'Router is in the room'
+    #
+    # room.cleanTileAtPosition(Position(0.6, 0.3))
+    # room.cleanTileAtPosition(Position(0.8, 0.8))
+    # room.cleanTileAtPosition(Position(0.2, 0.5))
+    # print 'Cleaned tiles in room', str(room.getNumCleanedTiles())
+
+    showPlot1('aaa', 'bbb', 'ccc')
+    return 0
+
+
+if __name__ == '__main__':
+    main()
+
